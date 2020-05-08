@@ -18,7 +18,7 @@ const useStyles = makeStyles({
     margin: "0 2% !important",
   },
   infected: {
-    borderBottom: "10px solid rgba(0, 0, 255, .5)",
+    borderBottom: "10px solid rgba(0, 0, 255, .3)",
   },
   recovered: {
     borderBottom: "10px solid rgba(0, 255, 0, .3)",
@@ -69,7 +69,7 @@ function Cards({ data: { confirmed, recovered, deaths, lastUpdate } }: Props) {
             </Typography>
             <Typography color="textSecondary">{formatedDate}</Typography>
             <Typography variant="body2">
-              Número de casos ativos de COVID-19
+              Número de casos ativos
             </Typography>
           </CardContent>
         </Grid>
@@ -94,7 +94,7 @@ function Cards({ data: { confirmed, recovered, deaths, lastUpdate } }: Props) {
             </Typography>
             <Typography color="textSecondary">{formatedDate}</Typography>
             <Typography variant="body2">
-              Número de recuperados do COVID-19
+              Número de recuperados
             </Typography>
           </CardContent>
         </Grid>
