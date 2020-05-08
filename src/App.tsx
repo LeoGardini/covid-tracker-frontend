@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 
 import { makeStyles } from "@material-ui/core";
 
-import { Cards } from "./components";
+import { Cards, Chart } from "./components";
 import { Data, fetchData } from "./services/api";
 
 const useStyles = makeStyles({
@@ -10,6 +10,7 @@ const useStyles = makeStyles({
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
+    flexDirection: "column",
   },
 });
 
@@ -24,11 +25,12 @@ function App() {
       setData(response);
     }
     get();
-  });
+  }, []);
 
   return (
     <div className={classes.root}>
       <Cards data={data} />
+      <Chart />
     </div>
   );
 }
