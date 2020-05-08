@@ -37,4 +37,35 @@ export const fetchData = async () => {
   }
 };
 
-export default fetchData;
+export interface DailyData {
+  confirmed: {
+    total: number;
+    china: number;
+    outsideChina: number;
+  };
+  deaths: {
+    total: number;
+    china: number;
+    outsideChina: number;
+  };
+  recovered: {
+    total: number;
+    china: number;
+    outsideChina: number;
+  };
+  reportDate: Date;
+}
+
+export const fetchDailyData = async () => {
+  try {
+    const { data } = await axios.get(`${url}/daily`);
+
+    return data.map((dailyData: DailyData) => ({
+      confirmed: dailyData.confirmed.total,
+      deaths: dailyData.deaths.total,
+      reportDate: dailyData.reportDate,
+    }));
+  } catch (err) {
+    console.log(err);
+  }
+};

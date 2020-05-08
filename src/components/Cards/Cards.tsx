@@ -6,6 +6,7 @@ import { makeStyles } from "@material-ui/core";
 import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
 import { Card, CardContent } from "@material-ui/core";
+import CircularProgress from "@material-ui/core/CircularProgress";
 
 import { Data } from "../../services/api";
 
@@ -35,7 +36,7 @@ function Cards({ data: { confirmed, recovered, deaths, lastUpdate } }: Props) {
   const classes = useStyles();
 
   if (!confirmed) {
-    return <div>Loading...</div>;
+    return <CircularProgress disableShrink size={100} />;
   }
 
   const formatedDate = new Date(lastUpdate).toLocaleDateString("pt-BR", {
