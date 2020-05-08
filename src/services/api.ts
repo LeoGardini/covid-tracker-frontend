@@ -1,5 +1,7 @@
 import axios from "axios";
 
+const url: string | any = process.env.REACT_APP_API_URL;
+
 export interface Data {
   confirmed: {
     value: number;
@@ -16,22 +18,18 @@ export interface Data {
   lastUpdate: Date;
 }
 
-const url = process.env.REACT_APP_API_URL || "https://covid19.mathdro.id/api";
+export const fetchData = async (country: string) => {
+  let changeableUrl: string;
 
-export const fetchData = async () => {
+  if (country) changeableUrl = `${url}/countries/${country}`;
+  else changeableUrl = url;
+
   try {
     const {
       data: { confirmed, recovered, deaths, lastUpdate },
-    } = await axios.get(url);
+    } = await axios.get(changeableUrl);
 
-    const modifiedData: Data = {
-      confirmed,
-      recovered,
-      deaths,
-      lastUpdate,
-    };
-
-    return modifiedData;
+    return { confirmed, recovered, deaths, lastUpdate };
   } catch (err) {
     console.log(err);
   }
@@ -65,6 +63,22 @@ export const fetchDailyData = async () => {
       deaths: dailyData.deaths.total,
       reportDate: dailyData.reportDate,
     }));
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+export interface Country {
+  name: string;
+  iso2: string;
+  iso3: string;
+}
+
+export const fetchCountries = async () => {
+  try {
+    const { data } = await axios.get(`${url}/countries`);
+
+    return data.countries.map((country: Country) => country.name);
   } catch (err) {
     console.log(err);
   }
